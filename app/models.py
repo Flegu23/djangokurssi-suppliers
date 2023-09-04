@@ -13,10 +13,11 @@ class Supplier(models.Model):
 
 
 class Product(models.Model):
+    companyname = models.CharField(max_length= 50, default="firma")
     productname = models.CharField(max_length= 20, default="laku")
     packagesize = models.CharField(max_length= 20, default = 3)
     unitprice = models.DecimalField(max_digits=8, decimal_places=2, default=1.00)
-    unitsinstock = models.IntegerField(max_length= 20, default="laku")
+    unitsinstock = models.IntegerField(default="laku")
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
 
     def __str__(self):
