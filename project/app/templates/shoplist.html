@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<br />
+<div id="add-div"></div>
+<br />
+
+<h1 style="color: darkviolet">Shops</h1>
+
+<button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Add new shop</button>
+
+
+        <form method="post" action="/search-shops/">
+
+            {%csrf_token %}
+            <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+            <input type="submit" value="Search" class="btn btn-success btn-sm" name="">
+        </form>
+  
+
+{% for s in shops %}
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{s.companyname}}</h4>
+        <p class="card-text">town: {{s.shoptown}} | address: {{s.shopaddress}} </p>
+
+        <a href="/edit-shop-get/{{s.id}}/" class="btn btn-primary">Edit</a>
+
+    </div>
+</div>
+
+
+{%endfor%}
+
+
+<script>
+
+    let x = `
+    <h2 style="color: lightblue">Please fill in form</h2>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-shop/">
+    
+                {% csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="company´s name" name="companyname">
+                <input class="card-text" type="text" placeholder="shop town" name="shoptown">
+                <input class="card-text" type="text" placeholder="shop address" name="shopaddress">
+                <br/>
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+            </form>
+        </div>
+    </div>`
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = x
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
+
+{% endblock %}
